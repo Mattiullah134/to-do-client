@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import SideBar from './component/SideBar';
 import Home from './pages/Home';
@@ -9,28 +9,46 @@ import Planed from './pages/Planed';
 import AllTask from './pages/AllTask';
 import Completed from './pages/Completed';
 import AssignedToMe from './pages/AssignedToMe';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import { useEffect } from 'react';
 
 function App() {
+  const navigate = useNavigate();
+  const router = useLocation();
+  console.log(router.pathname);
+  useEffect(() => {
+    // if (true) {
+    //   navigate('/login')
+    // }
+  }, [])
+
   return (
-    <div className="App">
-      <SideBar />
-      <div className='border-red-100 border-8 h-screen w-[83.5%]  relative'>
+
+    <div className="flex items-center justify-end">
+      <div className=' h-screen overflow-y-scroll w-[83.5%]  relative'>
+        {(router.pathname !== '/login') && (router.pathname !== '/signup') && <SideBar />}
         <div className='mx-2'>
-          <h1 className='text-5xl font-semibold my-5'>Matti Ullah</h1>
+
+          {(router.pathname !== '/login') && (router.pathname !== '/signup') && <h1 className='text-5xl font-semibold my-5'>Matti Ullah</h1>}
         </div>
+
         <Routes>
 
-          <Route path='/' element={<Home />} />
+          <Route exat path='/' element={<Home />} />
           <Route path='/myday' element={<MyDay />} />
           <Route path='/important' element={<Important />} />
           <Route path='/planed' element={<Planed />} />
           <Route path='/alltask' element={<AllTask />} />
           <Route path='/completed' element={<Completed />} />
           <Route path='/assigntome' element={<AssignedToMe />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
         </Routes>
-        <Footer />
+        {(router.pathname !== '/login') && (router.pathname !== '/signup') && <Footer />}
       </div>
     </div>
+
   );
 }
 

@@ -1,9 +1,17 @@
-import React from 'react'
+import Task from '../component/Task';
+import React, { useContext } from 'react'
+import { handleStateGlobally } from '../context/store';
 
 const Important = () => {
+    const { importantTask } = useContext(handleStateGlobally);
+
     return (
-        <div>
-            this is my important page
+        <div className='px-2 h-[550px] home overflow-y-scroll'>
+            {
+                importantTask && importantTask?.map((data, i) => {
+                    return <Task key={i} data={data} />;
+                })
+            }
         </div>
     )
 }
