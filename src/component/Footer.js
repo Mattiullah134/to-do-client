@@ -1,8 +1,7 @@
-import React, { useCallback, useContext, useState } from 'react'
-import { handleStateGlobally } from '../context/store'
+import React, { useCallback, useState } from 'react'
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 const Footer = () => {
-    const { setTask } = useContext(handleStateGlobally);
     const [userTask, setUserTask] = useState({
         title: '',
         date: ''
@@ -21,21 +20,22 @@ const Footer = () => {
         e.preventDefault();
         console.log(userTask);
         try {
-            const { data } = await axios.post(`http://localhost:8000/user/todo/add`, userTask);
-            console.log(data);
+            const response = await axios.post(`http://localhost:8000/user/todo/add`, userTask);
+            console.log(response);
+            if (response.data.success) {
+                toast(response.data.message)
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 1000);
+            }
         } catch (error) {
-
+            toast(error)
         }
-        // setUserTask({
-        //     title: '',
-        //     date: ''
-        // });
-    },
-        [userTask],
-    )
+    }, [userTask])
 
     return (
         <div className='absolute bottom-0 w-full p-2' >
+            <ToastContainer />
             <form onSubmit={handleSubmit}>
 
                 <div className="relative">
