@@ -26,7 +26,7 @@ function App() {
   return (
 
     <div className="flex items-center justify-end">
-      <div className=' h-screen overflow-y-scroll w-[83.5%]  relative'>
+      <div className=' h-screen overflow-y-scroll max-sm:w-full w-[83.5%]  relative'>
         {(router.pathname !== '/login') && (router.pathname !== '/signup') && <SideBar />}
         <div className='mx-2'>
 
